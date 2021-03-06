@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import axios from 'axios'
+import { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Link } from 'react-router-dom'
+const baseUrl =
+  process.env.NODE_ENV === 'production'
+    ? 'https://express-auth0-7534.herokuapp.com'
+    : 'http://localhost:8080'
 
 function App() {
+  const [user, setUser] = useState(false)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await axios.get(baseUrl + '/api/currentuser')
+      console.log('user -> ', res.data)
+      setUser(res.data)
+    }
+
+    fetchData()
+  }, [])
+
+  const ping = async () => {
+    const res = await axios.get(baseUrl + '/login')
+    console.log(res.data)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Router>
+      <div className="App">
+        <h1>hello hello</h1>
+        <p>{JSON.stringify(user, null, 2)}</p>
+        <button onClick={ping}>get login</button>
+        <Link to="/login">navigate login...</Link>
+      </div>
+    </Router>
+  )
 }
 
-export default App;
+export default App

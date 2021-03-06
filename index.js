@@ -5,6 +5,7 @@ const helmet = require('helmet')
 const { auth } = require('express-openid-connect')
 const { requiresAuth } = require('express-openid-connect')
 const authConfig = require('./config/auth')
+const { currentUserRouter } = require('./routes/auth/currentUser')
 
 const app = express()
 app.use(cors())
@@ -16,6 +17,7 @@ app.use(
 
 // auth router attaches /login, /logout, and /callback routes to the baseURL
 app.use(auth(authConfig))
+app.use(currentUserRouter)
 
 // req.isAuthenticated is provided from the auth router
 /* app.get('/', (req, res) => {
@@ -23,7 +25,12 @@ app.use(auth(authConfig))
 }) */
 
 app.get('/profile', requiresAuth(), (req, res) => {
+  console.log(req.oidc.user)
   res.send(JSON.stringify(req.oidc.user))
+})
+
+app.get('/jee', (req, res) => {
+  res.send('morooo')
 })
 
 if (process.env.NODE_ENV === 'production') {
