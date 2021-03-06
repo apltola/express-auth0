@@ -32,6 +32,7 @@ function App() {
         <p>{JSON.stringify(user, null, 2)}</p>
         <button onClick={ping}>get login</button>
         <Link to="/login">navigate login...</Link>
+        <a href={`${baseUrl}/login`}>login with anchor tag</a>
       </div>
     </Router>
   )
