@@ -17,6 +17,10 @@ button {
   cursor: pointer;
 }
 
+a {
+  color: inherit;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

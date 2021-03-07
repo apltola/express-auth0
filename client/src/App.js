@@ -20,19 +20,17 @@ function App() {
     fetchData()
   }, [])
 
-  const ping = async () => {
-    const res = await axios.get(baseUrl + '/login')
-    console.log(res.data)
-  }
-
   return (
     <Router>
       <div className="App">
         <h1>hello hello</h1>
-        <p>{JSON.stringify(user, null, 2)}</p>
-        <button onClick={ping}>get login</button>
-        <Link to="/login">navigate login...</Link>
-        <a href={`${baseUrl}/login`}>login with anchor tag</a>
+        <div>
+          <a style={{ marginRight: 10 }} href={`${baseUrl}/login`}>
+            login
+          </a>
+          <a href={`${baseUrl}/logout`}>logout</a>
+        </div>
+        <p>user: {JSON.stringify(user, null, 2)}</p>
       </div>
     </Router>
   )

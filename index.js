@@ -34,10 +34,10 @@ app.get('/jee', (req, res) => {
 })
 
 if (process.env.NODE_ENV === 'production') {
-  const buildPath = path.resolve(__dirname, 'client', 'build')
-  app.use('/', express.static(buildPath))
+  const build = path.resolve(__dirname, 'client', 'build')
+  app.use('/', express.static(build))
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(buildPath, 'index.html'))
+    res.sendFile(path.resolve(build, 'index.html'))
   })
 }
 
